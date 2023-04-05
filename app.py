@@ -54,11 +54,34 @@ class Instructor(db.Model):
 
 
 # Schemas
+class StudentSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "first_name", "last_name", "year", "gpa",)
 
+student_schema = StudentSchema()
+students_schema = StudentSchema(many=True)
+
+class StudentNameSchema(ma.Schema):
+    class Meta:
+        fields = ("first_name", "last_name",)
+
+student_name_schema = StudentNameSchema
+student_names_schema = StudentNameSchema(many=True)
 
 # Resources
+class StudentListResource(Resource):
+    def get(self):
+        order = request.args.get('order')
+        query = Student.query
+        query = query.order_by(order)
+        all_students =query.all()
+        return students_schema.dump(all_students)
 
+class FullCourseDetailResource(Resource):
+    def get(self):
+        pass
 
 # Routes
-
+api.add_resource(StudentListResource, '/api/students/')
+# api.add_resource(StudentResource, '/api/songs/<int:song_id>')
 
