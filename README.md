@@ -1,2 +1,1 @@
-# Flask-Custom-Response-Lab
-DCC Flask Custom Response Lab
+# IntermediateFlaskLab_SD_PY_Starter
